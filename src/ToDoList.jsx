@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
-const ToDoList = (props) => {
+const ToDoList = () => {
+  const [num, setNum] = useState(0);
+
+  const incNum = () => {
+    setNum(num + 1);
+  };
+  const dicNum = () => {
+    setNum(num - 1);
+  };
   return (
     <>
-      <div className="todo_style">
-        <i
-          class="fa fa-times"
-          aria-hidden="true"
-          onClick={() => {
-            props.onSelect(props.id);
-          }}
-        ></i>
-        <li>{props.text}</li>
+      <div className="main_div">
+        <div className="center_div">
+          <h1>{num}</h1>
+          <div className="btn_div">
+            <button onClick={incNum}>
+              <AddIcon />
+            </button>
+            <button onClick={dicNum}>
+              <RemoveIcon />
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
 };
-
 export default ToDoList;
