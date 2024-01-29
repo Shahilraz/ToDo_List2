@@ -1,32 +1,48 @@
 import React, { useState } from "react";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import Button from "@mui/material/Button";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import ListComp from "./ListComp";
 
-const ToDoList = () => {
-  const [num, setNum] = useState(0);
+const ToDOList = () => {
+  const [item, setItem] = useState("");
+  const [newitem, setNewItem] = useState([]);
 
-  const incNum = () => {
-    setNum(num + 1);
+  const itemEvent = (event) => {
+    setItem(event.target.value);
   };
-  const dicNum = () => {
-    setNum(num - 1);
+
+  const listofitems = () => {
+    setNewItem((prevValue) => {
+      return [...prevValue, item];
+    });
+    setItem(" ");
   };
   return (
     <>
       <div className="main_div">
         <div className="center_div">
-          <h1>{num}</h1>
-          <div className="btn_div">
-            <button onClick={incNum}>
-              <AddIcon />
-            </button>
-            <button onClick={dicNum}>
-              <RemoveIcon />
-            </button>
-          </div>
+          <br />
+          <h1>ToDo List</h1>
+          <br />
+          <input
+            type="text"
+            value={item}
+            placeholder="Add an Items"
+            onChange={itemEvent}
+          />
+          <Button className="newBtn" onClick={listofitems}>
+            <AddBoxIcon />
+          </Button>
+          <br />
+          <ol>
+          
+            {newitem.map((val,index) => {
+              return <ListComp key={index} text={val}/>;
+            })}
+          </ol>
         </div>
       </div>
     </>
   );
 };
-export default ToDoList;
+export default ToDOList;
